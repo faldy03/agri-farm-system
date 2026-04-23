@@ -21,4 +21,8 @@ class Sawah extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function aktivitas()
+{
+    return $this->hasMany(aktivitas_sawah::class);
+}
 }
