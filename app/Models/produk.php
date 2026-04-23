@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class produk extends Model
+class Produk extends Model
 {
     protected $fillable = [
     'nama',
@@ -12,4 +12,8 @@ class produk extends Model
     'satuan',
     'harga'
 ];
+public function stok()
+{
+    return $this->hasOne(Stok::class);
+}
 }

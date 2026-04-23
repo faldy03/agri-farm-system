@@ -22,7 +22,21 @@ class Sawah extends Model
         return $this->belongsTo(User::class);
     }
     public function aktivitas()
-{
-    return $this->hasMany(aktivitas_sawah::class);
-}
+    {
+        return $this->hasMany(Aktivitas_Sawah::class);
+    }
+    public function panen()
+    {
+        return $this->hasMany(Panen::class);
+    }
+
+    public function pengeluaran()
+    {
+        return $this->hasMany(Transaksi_Pengeluaran::class);
+    }
+
+    public function pemasukan()
+    {
+        return $this->hasMany(Transaksi_Pemasukan::class);
+    }
 }
