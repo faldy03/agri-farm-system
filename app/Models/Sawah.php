@@ -23,7 +23,7 @@ class Sawah extends Model
     }
     public function aktivitas()
     {
-        return $this->hasMany(Aktivitas_Sawah::class);
+        return $this->hasMany(AktivitasSawah::class);
     }
     public function panen()
     {

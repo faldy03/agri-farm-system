@@ -15,6 +15,18 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    
+                    @if(auth()->user()->hasRole('admin'))
+                        <x-nav-link href="#" :active="false">
+                            {{ __('Kelola Pengguna') }}
+                        </x-nav-link>
+                    @endif
+                    
+                    @if(auth()->user()->hasAnyRole(['farmer', 'admin']))
+                        <x-nav-link href="#" :active="false">
+                            {{ __('Sawah') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -34,6 +46,26 @@
                     </x-slot>
 
                     <x-slot name="content">
+                        <!-- User Info -->
+                        <div class="px-4 py-3 border-b border-gray-100 dark:border-gray-700">
+                            <div class="font-medium text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div>
+                            <div class="text-sm text-gray-600 dark:text-gray-400">{{ Auth::user()->email }}</div>
+                            <div class="mt-2">
+                                @php
+                                    $roles = Auth::user()->getRoleNames();
+                                @endphp
+                                @if($roles->count() > 0)
+                                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">
+                                        📋 {{ $roles->implode(', ') }}
+                                    </span>
+                                @else
+                                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+                                        ⚠️ Belum memiliki role
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
