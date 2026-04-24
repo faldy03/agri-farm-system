@@ -17,4 +17,9 @@ class Panen extends Model
     {
         return $this->belongsTo(Sawah::class);
     }
+
+    public function transaksiPemasukan()
+    {
+        return $this->hasMany(Transaksi_Pemasukan::class);
 }
+}   

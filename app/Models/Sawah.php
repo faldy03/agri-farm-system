@@ -39,4 +39,9 @@ class Sawah extends Model
     {
         return $this->hasMany(Transaksi_Pemasukan::class);
     }
+
+    public function prediksiPanen()
+    {
+        return $this->hasMany(Prediksi_Panen::class);
+    }
 }
