@@ -17,7 +17,7 @@
                     </x-nav-link>
                     
                     @if(auth()->user()->hasRole('admin'))
-                        <x-nav-link href="#" :active="false">
+                        <x-nav-link href="{{ route('users.index') }}" :active="false">
                             {{ __('Kelola Pengguna') }}
                         </x-nav-link>
                     @endif

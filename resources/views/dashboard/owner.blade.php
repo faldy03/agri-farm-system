@@ -4,7 +4,8 @@
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 {{ __('Pemilik Usaha - Dashboard') }}
             </h2>
-            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200">
+            <span
+                class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200">
                 👔 Pemilik Usaha
             </span>
         </div>
@@ -21,7 +22,8 @@
             <!-- Financial Overview Cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 <!-- Total Sawah Card -->
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg hover:shadow-md transition">
+                <div
+                    class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg hover:shadow-md transition">
                     <div class="p-6">
                         <div class="flex items-center justify-between">
                             <div>
@@ -36,7 +38,8 @@
                 </div>
 
                 <!-- Total Harvest Card -->
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg hover:shadow-md transition">
+                <div
+                    class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg hover:shadow-md transition">
                     <div class="p-6">
                         <div class="flex items-center justify-between">
                             <div>
@@ -51,7 +54,8 @@
                 </div>
 
                 <!-- Total Income Card -->
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg hover:shadow-md transition">
+                <div
+                    class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg hover:shadow-md transition">
                     <div class="p-6">
                         <div class="flex items-center justify-between">
                             <div>
@@ -66,12 +70,14 @@
                 </div>
 
                 <!-- Total Profit Card -->
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg hover:shadow-md transition">
+                <div
+                    class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg hover:shadow-md transition">
                     <div class="p-6">
                         <div class="flex items-center justify-between">
                             <div>
                                 <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Total Keuntungan</p>
-                                <p class="text-2xl font-bold {{ $totalProfit >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400' }} mt-2">
+                                <p
+                                    class="text-2xl font-bold {{ $totalProfit >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400' }} mt-2">
                                     Rp {{ number_format($totalProfit, 0, ',', '.') }}
                                 </p>
                             </div>
@@ -160,13 +166,20 @@
                                 📋 Menu Cepat
                             </p>
                             <div class="space-y-2">
-                                <a href="#" class="block px-4 py-2 rounded bg-blue-50 dark:bg-blue-900 text-blue-700 dark:text-blue-200 hover:bg-blue-100 dark:hover:bg-blue-800 transition text-sm">
+                                <a href="#"
+                                    class="block px-4 py-2 rounded bg-blue-50 dark:bg-blue-900 text-blue-700 dark:text-blue-200 hover:bg-blue-100 dark:hover:bg-blue-800 transition text-sm">
                                     📊 Laporan Keuangan
                                 </a>
-                                <a href="#" class="block px-4 py-2 rounded bg-purple-50 dark:bg-purple-900 text-purple-700 dark:text-purple-200 hover:bg-purple-100 dark:hover:bg-purple-800 transition text-sm">
+                                <a href="{{ route('users.index') }}"
+                                    class="block px-4 py-2 rounded bg-blue-50 dark:bg-blue-900 text-blue-700 dark:text-blue-200 hover:bg-blue-100 dark:hover:bg-blue-800 transition text-sm">
+                                    📊 Kelola Pengguna
+                                </a>
+                                <a href="#"
+                                    class="block px-4 py-2 rounded bg-purple-50 dark:bg-purple-900 text-purple-700 dark:text-purple-200 hover:bg-purple-100 dark:hover:bg-purple-800 transition text-sm">
                                     📈 Analytics
                                 </a>
-                                <a href="#" class="block px-4 py-2 rounded bg-green-50 dark:bg-green-900 text-green-700 dark:text-green-200 hover:bg-green-100 dark:hover:bg-green-800 transition text-sm">
+                                <a href="#"
+                                    class="block px-4 py-2 rounded bg-green-50 dark:bg-green-900 text-green-700 dark:text-green-200 hover:bg-green-100 dark:hover:bg-green-800 transition text-sm">
                                     🎯 Strategi Bisnis
                                 </a>
                             </div>
