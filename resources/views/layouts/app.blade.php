@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="light">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,95 +8,156 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+        <script>
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        colors: {
+                            "surface-tint": "#3f6653",
+                            "primary-fixed-dim": "#a5d0b9",
+                            "on-tertiary-container": "#cd9d6d",
+                            "on-tertiary": "#ffffff",
+                            "inverse-surface": "#2e3132",
+                            "secondary": "#77574d",
+                            "primary-container": "#1b4332",
+                            "primary-fixed": "#c1ecd4",
+                            "on-primary-container": "#86af99",
+                            "surface-bright": "#f8f9fa",
+                            "on-primary": "#ffffff",
+                            "error-container": "#ffdad6",
+                            "on-surface-variant": "#414844",
+                            "surface-container-lowest": "#ffffff",
+                            "surface": "#f8f9fa",
+                            "inverse-on-surface": "#f0f1f2",
+                            "on-secondary": "#ffffff",
+                            "on-background": "#191c1d",
+                            "outline": "#717973",
+                            "secondary-fixed-dim": "#e7bdb1",
+                            "surface-variant": "#e1e3e4",
+                            "surface-dim": "#d9dadb",
+                            "surface-container": "#edeeef",
+                            "tertiary-fixed-dim": "#f0bd8b",
+                            "surface-container-high": "#e7e8e9",
+                            "surface-container-highest": "#e1e3e4",
+                            "outline-variant": "#c1c8c2",
+                            "on-primary-fixed-variant": "#274e3d",
+                            "background": "#f8f9fa",
+                            "secondary-container": "#fed3c7",
+                            "on-tertiary-fixed-variant": "#623f18",
+                            "on-secondary-fixed": "#2c160e",
+                            "primary": "#012d1d",
+                            "on-surface": "#191c1d",
+                            "on-tertiary-fixed": "#2c1600",
+                            "tertiary-fixed": "#ffdcbd",
+                            "tertiary-container": "#56340e",
+                            "tertiary": "#3b1f00",
+                            "on-secondary-fixed-variant": "#5d4037",
+                            "on-secondary-container": "#795950",
+                            "on-primary-fixed": "#002114",
+                            "error": "#ba1a1a",
+                            "on-error-container": "#93000a",
+                            "on-error": "#ffffff",
+                            "surface-container-low": "#f3f4f5",
+                            "inverse-primary": "#a5d0b9",
+                            "secondary-fixed": "#ffdbd0"
+                        },
+                        borderRadius: {
+                            DEFAULT: "0.25rem",
+                            lg: "0.5rem",
+                            xl: "0.75rem",
+                            full: "9999px"
+                        },
+                        spacing: {
+                            "stack-md": "24px",
+                            "stack-lg": "48px",
+                            "stack-sm": "12px",
+                            "gutter": "24px",
+                            "container-max": "1440px",
+                            "margin-page": "40px",
+                            "base": "8px"
+                        },
+                        fontFamily: {
+                            body: ["Manrope", "sans-serif"],
+                        },
+                        fontSize: {
+                            "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                            "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }],
+                            "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                            "label-caps": ["12px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "700" }],
+                            "body-sm": ["14px", { lineHeight: "20px", fontWeight: "400" }]
+                        }
+                    },
+                },
+            }
+        </script>
+        <style>
+            .material-symbols-outlined {
+                font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            }
+            body { font-family: 'Manrope', sans-serif; }
+        </style>
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            <!-- Sidebar -->
-            <x-sidebar />
+    <body class="bg-background text-on-background antialiased min-h-screen">
+        <!-- SideNavBar (Shared Component) -->
+        <x-sidebar />
 
-            <!-- Top Navigation Bar -->
-            <div class="sm:ml-64 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-30 shadow-sm">
-                <div class="px-4 py-4 flex items-center justify-between">
-                    <!-- Mobile Menu Button -->
-                    <button type="button" class="sm:hidden text-gray-600 dark:text-gray-400" onclick="document.getElementById('sidebar').classList.toggle('-translate-x-full'); document.getElementById('sidebar-overlay').classList.toggle('opacity-0', 'pointer-events-none')">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
+        <!-- TopNavBar (Shared Component) -->
+        <header class="fixed top-0 right-0 left-64 h-16 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-sm z-40 flex items-center justify-between px-10 transition-all">
+            <div class="flex items-center gap-6 flex-1">
+                <div class="relative w-96">
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+                    <input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-body-sm focus:ring-2 focus:ring-emerald-500 transition-all" placeholder="Search system resources..." type="text"/>
+                </div>
+            </div>
+            <div class="flex items-center gap-6">
+                <div class="flex gap-4">
+                    <button class="text-slate-500 hover:text-emerald-600 transition-colors">
+                        <span class="material-symbols-outlined">notifications</span>
+                    </button>
+                    <button class="text-slate-500 hover:text-emerald-600 transition-colors">
+                        <span class="material-symbols-outlined">help_outline</span>
+                    </button>
+                </div>
+                <div class="h-8 w-[1px] bg-slate-200 mx-2"></div>
+                <div x-data="{ open: false }" class="relative flex items-center gap-3">
+                    <div class="text-right">
+                        <p class="text-body-sm font-bold text-emerald-900 leading-tight">{{ auth()->user()->name }}</p>
+                        <p class="text-[10px] text-slate-500 font-medium">{{ auth()->user()->getRoleNames()->first() ?? 'User' }}</p>
+                    </div>
+                    <button @click="open = !open" class="relative">
+                        <img class="w-10 h-10 rounded-full object-cover border-2 border-emerald-100" src="https://api.dicebear.com/7.x/avataaars/svg?seed={{ auth()->user()->id }}" alt="{{ auth()->user()->name }}"/>
                     </button>
 
-                    <!-- Header Title -->
-                    @isset($header)
-                        <div class="flex-1 ml-4 sm:ml-0">
-                            {{ $header }}
+                    <!-- Dropdown Menu -->
+                    <div @show="open" @click.away="open = false" x-transition class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 top-full" style="display: none;" x-show="open">
+                        <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+                            <p class="text-sm font-semibold text-gray-900 dark:text-white">{{ auth()->user()->name }}</p>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">{{ auth()->user()->email }}</p>
                         </div>
-                    @else
-                        <div class="flex-1"></div>
-                    @endisset
-
-                    <!-- Right Side Actions -->
-                    <div class="flex items-center gap-4">
-                        <!-- Theme Toggle (Optional) -->
-                        <button onclick="document.documentElement.classList.toggle('dark')" class="p-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition">
-                            <svg class="w-5 h-5 dark:hidden" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
-                            </svg>
-                            <svg class="w-5 h-5 hidden dark:block" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.536l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.121-10.607a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM5.464 5.464a1 1 0 010 1.414l-.707.707A1 1 0 003.343 5.464l.707-.707a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                            </svg>
-                        </button>
-
-                        <!-- Divider -->
-                        <div class="w-px h-6 bg-gray-300 dark:bg-gray-600"></div>
-
-                        <!-- User Menu -->
-                        <div x-data="{ open: false }" class="relative">
-                            <button @click="open = !open" class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition">
-                                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center text-white font-semibold text-sm">
-                                    {{ substr(auth()->user()->name, 0, 1) }}
-                                </div>
-                                <svg class="w-4 h-4 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-                                </svg>
+                        <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+                            <span class="material-symbols-outlined inline mr-2" style="font-size: 16px;">person</span>Edit Profil
+                        </a>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+                                <span class="material-symbols-outlined inline mr-2" style="font-size: 16px;">logout</span>Logout
                             </button>
-
-                            <!-- Dropdown Menu -->
-                            <div @show="open" @click.away="open = false" x-transition class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700" style="display: none;" x-show="open">
-                                <div class="p-4 border-b border-gray-200 dark:border-gray-700">
-                                    <p class="text-sm font-semibold text-gray-900 dark:text-white">{{ auth()->user()->name }}</p>
-                                    <p class="text-xs text-gray-600 dark:text-gray-400">{{ auth()->user()->email }}</p>
-                                </div>
-                                <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition">
-                                    👤 Edit Profil
-                                </a>
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <button type="submit" class="w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition">
-                                        🚪 Logout
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
-
-                <!-- Page Heading -->
-                @isset($header)
-                    <div class="hidden sm:block px-4 py-4 border-t border-gray-200 dark:border-gray-700">
-                        {{ $header }}
-                    </div>
-                @endisset
             </div>
+        </header>
 
-            <!-- Page Content -->
-            <main class="sm:ml-64">
-                {{ $slot }}
-            </main>
-        </div>
+        <!-- Main Content Canvas -->
+        <main class="ml-64 pt-16 min-h-screen bg-surface-container-low p-10">
+            {{ $slot }}
+        </main>
     </body>
 </html>

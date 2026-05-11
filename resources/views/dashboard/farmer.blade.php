@@ -1,328 +1,175 @@
 <x-app-layout>
-    <x-slot name="header">
-        <div class="flex items-center justify-between">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200">
-                {{ __('Petani - Dashboard') }}
-            </h2>
-            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">
-                👨‍🌾 Petani
-            </span>
+    <!-- Header Section -->
+    <div class="flex items-end justify-between mb-8">
+        <div>
+            <nav class="flex items-center gap-2 text-slate-400 text-label-caps mb-2">
+                <a class="hover:text-emerald-700" href="#">Home</a>
+                <span class="material-symbols-outlined text-[12px]">chevron_right</span>
+                <span class="text-emerald-700">My Dashboard</span>
+            </nav>
+            <h2 class="font-display-lg text-primary text-[32px] leading-tight">Field Operations</h2>
+            <p class="text-body-sm text-slate-500 mt-1">Manage your daily farm activities and field performance.</p>
         </div>
-    </x-slot>
+        <button class="flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-lg font-bold text-body-sm shadow-lg shadow-primary/20 hover:opacity-90 active:scale-95 transition-all">
+            <span class="material-symbols-outlined">note_add</span>
+            Log Activity
+        </button>
+    </div>
 
-    <div class="p-6 space-y-6">
-        <!-- Welcome Banner -->
-        <div class="bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg shadow-lg p-8 text-white">
-            <h3 class="text-2xl font-bold mb-2">Selamat datang, {{ auth()->user()->name }}! 🌾</h3>
-            <p class="text-green-100">Kelola sawah dan aktivitas pertanian Anda dengan mudah</p>
-        </div>
-
-        <!-- Quick Stats -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 border-l-4 border-green-500 hover:shadow-md transition">
-                <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Jumlah Sawah</p>
-                <p class="text-3xl font-bold text-green-600 dark:text-green-400 mt-2">{{ $sawahCount }}</p>
+    <!-- Quick Stats -->
+    <div class="grid grid-cols-4 gap-gutter mb-8">
+        <div class="bg-white p-stack-md rounded-xl border border-slate-100 shadow-sm flex items-center gap-4 hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 rounded-lg bg-emerald-50 flex items-center justify-center text-emerald-700">
+                <span class="material-symbols-outlined text-[28px]">landscape</span>
             </div>
-
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 border-l-4 border-blue-500 hover:shadow-md transition">
-                <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Aktivitas Bulan Ini</p>
-                <p class="text-3xl font-bold text-blue-600 dark:text-blue-400 mt-2">{{ $aktivitasCount }}</p>
-            </div>
-
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6 border-l-4 border-amber-500 hover:shadow-md transition">
-                <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Jumlah Panen</p>
-                <p class="text-3xl font-bold text-amber-600 dark:text-amber-400 mt-2">{{ $panenCount }}</p>
+            <div>
+                <p class="text-label-caps text-slate-400">MY SAWAH</p>
+                <p class="text-headline-md text-primary">{{ $sawahCount ?? 0 }}</p>
+                <p class="text-[10px] text-emerald-600 font-medium">Managed fields</p>
             </div>
         </div>
 
-        <!-- Two Column Layout -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <!-- Recent Activities (2 cols) -->
-            <div class="lg:col-span-2 bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden">
-                <div class="p-6 border-b border-gray-200 dark:border-gray-700">
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-                        <span class="text-2xl">📋</span> Aktivitas Terbaru
-                    </h3>
-                </div>
-
-                <div class="divide-y divide-gray-200 dark:divide-gray-700">
-                    @forelse($recentActivities as $activity)
-                        <div class="p-6 hover:bg-gray-50 dark:hover:bg-gray-700 transition">
-                            <div class="flex justify-between items-start">
-                                <div class="flex-1">
-                                    <p class="font-semibold text-gray-900 dark:text-gray-100">
-                                        {{ $activity->keterangan ?? 'Aktivitas' }}
-                                    </p>
-                                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                                        Sawah: <strong>{{ $activity->sawah->nama ?? '-' }}</strong>
-                                    </p>
-                                </div>
-                                <div class="text-right">
-                                    <p class="text-xs text-gray-500 dark:text-gray-400">
-                                        {{ $activity->created_at->format('d M Y') }}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    @empty
-                        <div class="p-6 text-center text-gray-500 dark:text-gray-400">
-                            Belum ada aktivitas
-                        </div>
-                    @endforelse
-                </div>
+        <div class="bg-white p-stack-md rounded-xl border border-slate-100 shadow-sm flex items-center gap-4 hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center text-blue-700">
+                <span class="material-symbols-outlined text-[28px]">agriculture</span>
             </div>
-
-            <!-- Quick Actions -->
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                    <span class="text-2xl">⚡</span> Aksi Cepat
-                </h3>
-                <div class="space-y-2">
-                    <a href="#" class="block px-4 py-3 rounded-lg bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold hover:from-green-600 hover:to-emerald-700 transition text-center">
-                        + Tambah Sawah
-                    </a>
-                    <a href="#" class="block px-4 py-3 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-600 text-white font-semibold hover:from-blue-600 hover:to-cyan-700 transition text-center">
-                        + Aktivitas Baru
-                    </a>
-                    <a href="#" class="block px-4 py-3 rounded-lg bg-gradient-to-r from-amber-500 to-orange-600 text-white font-semibold hover:from-amber-600 hover:to-orange-700 transition text-center">
-                        + Catat Panen
-                    </a>
-                </div>
+            <div>
+                <p class="text-label-caps text-slate-400">ACTIVITIES</p>
+                <p class="text-headline-md text-primary">{{ $aktivitasCount ?? 0 }}</p>
+                <p class="text-[10px] text-slate-600 font-medium">This month</p>
             </div>
         </div>
 
-        <!-- Recent Harvest -->
-        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden">
-            <div class="p-6 border-b border-gray-200 dark:border-gray-700">
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-                    <span class="text-2xl">📦</span> Hasil Panen Terbaru
-                </h3>
+        <div class="bg-white p-stack-md rounded-xl border border-slate-100 shadow-sm flex items-center gap-4 hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 rounded-lg bg-orange-50 flex items-center justify-center text-orange-700">
+                <span class="material-symbols-outlined text-[28px]">shopping_basket</span>
             </div>
+            <div>
+                <p class="text-label-caps text-slate-400">HARVESTED</p>
+                <p class="text-headline-md text-primary">0 kg</p>
+                <p class="text-[10px] text-slate-600 font-medium">Ready to harvest</p>
+            </div>
+        </div>
 
-            <div class="overflow-x-auto">
-                <table class="w-full text-sm">
-                    <thead class="bg-gray-50 dark:bg-gray-700">
-                        <tr>
-                            <th class="px-6 py-3 text-left font-semibold text-gray-900 dark:text-gray-100">Sawah</th>
-                            <th class="px-6 py-3 text-left font-semibold text-gray-900 dark:text-gray-100">Jumlah (kg)</th>
-                            <th class="px-6 py-3 text-left font-semibold text-gray-900 dark:text-gray-100">Tanggal Panen</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-                        @forelse($recentHarvest as $harvest)
-                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
-                                <td class="px-6 py-4 font-semibold text-gray-900 dark:text-gray-100">
-                                    {{ $harvest->sawah->nama ?? '-' }}
-                                </td>
-                                <td class="px-6 py-4 text-gray-900 dark:text-gray-100">
-                                    {{ number_format($harvest->jumlah_kg, 2, ',', '.') }}
-                                </td>
-                                <td class="px-6 py-4 text-gray-600 dark:text-gray-400">
-                                    {{ $harvest->tanggal_panen->format('d M Y') }}
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="3" class="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
-                                    Belum ada data panen
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+        <div class="bg-white p-stack-md rounded-xl border border-slate-100 shadow-sm flex items-center gap-4 hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 rounded-lg bg-green-50 flex items-center justify-center text-green-700">
+                <span class="material-symbols-outlined text-[28px]">check_circle</span>
+            </div>
+            <div>
+                <p class="text-label-caps text-slate-400">FIELD HEALTH</p>
+                <p class="text-headline-md text-primary">94%</p>
+                <p class="text-[10px] text-emerald-600 font-medium">Average score</p>
             </div>
         </div>
     </div>
-</x-app-layout>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <!-- Greeting Card -->
-            <div class="mb-8 bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg shadow-lg p-8 text-white">
-                <h3 class="text-2xl font-bold mb-2">Selamat Datang, {{ auth()->user()->name }}! 🌾</h3>
-                <p class="text-green-100">Kelola sawah dan aktivitas pertanian Anda dengan mudah</p>
-            </div>
-
-            <!-- Quick Stats -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <!-- Sawah Count Card -->
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg hover:shadow-md transition">
-                    <div class="p-6">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Jumlah Sawah</p>
-                                <p class="text-4xl font-bold text-green-600 dark:text-green-400 mt-2">
-                                    {{ $sawahCount }}
-                                </p>
-                            </div>
-                            <div class="text-5xl opacity-20">🌾</div>
+    <!-- Main Content -->
+    <div class="grid grid-cols-3 gap-gutter mb-8">
+        <!-- Field Status -->
+        <div class="col-span-2 bg-white rounded-xl border border-slate-100 shadow-sm p-stack-md">
+            <h4 class="text-headline-md text-primary mb-4">Field Status Overview</h4>
+            <div class="space-y-3">
+                <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+                            <p class="text-body-sm font-medium text-primary">North Field - Section A</p>
                         </div>
+                        <p class="text-[12px] text-slate-500">Soil moisture: 68% | Temp: 28°C</p>
                     </div>
-                    <div class="bg-green-50 dark:bg-green-900 px-6 py-3">
-                        <a href="#" class="text-sm font-semibold text-green-700 dark:text-green-200 hover:underline">
-                            Lihat Semua →
-                        </a>
-                    </div>
+                    <span class="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-[11px] font-bold">Optimal</span>
                 </div>
-
-                <!-- Aktivitas Count Card -->
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg hover:shadow-md transition">
-                    <div class="p-6">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Aktivitas Bulan Ini</p>
-                                <p class="text-4xl font-bold text-blue-600 dark:text-blue-400 mt-2">
-                                    {{ $aktivitasCount }}
-                                </p>
-                            </div>
-                            <div class="text-5xl opacity-20">📋</div>
+                <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <div class="w-3 h-3 rounded-full bg-amber-500"></div>
+                            <p class="text-body-sm font-medium text-primary">East Field - Section B</p>
                         </div>
+                        <p class="text-[12px] text-slate-500">Soil moisture: 45% | Temp: 26°C</p>
                     </div>
-                    <div class="bg-blue-50 dark:bg-blue-900 px-6 py-3">
-                        <a href="#" class="text-sm font-semibold text-blue-700 dark:text-blue-200 hover:underline">
-                            Lihat Detail →
-                        </a>
-                    </div>
+                    <span class="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-[11px] font-bold">Water Needed</span>
                 </div>
-
-                <!-- Panen Count Card -->
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg hover:shadow-md transition">
-                    <div class="p-6">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Jumlah Panen</p>
-                                <p class="text-4xl font-bold text-amber-600 dark:text-amber-400 mt-2">
-                                    {{ $panenCount }}
-                                </p>
-                            </div>
-                            <div class="text-5xl opacity-20">📦</div>
+                <div class="flex items-center justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+                            <p class="text-body-sm font-medium text-primary">West Field - Section C</p>
                         </div>
+                        <p class="text-[12px] text-slate-500">Soil moisture: 72% | Temp: 29°C</p>
                     </div>
-                    <div class="bg-amber-50 dark:bg-amber-900 px-6 py-3">
-                        <a href="#" class="text-sm font-semibold text-amber-700 dark:text-amber-200 hover:underline">
-                            Lihat Hasil →
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Two Column Layout -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Recent Activities (Left - 2 cols) -->
-                <div class="lg:col-span-2 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 border-b border-gray-200 dark:border-gray-700">
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                            📋 Aktivitas Terbaru
-                        </h3>
-                    </div>
-
-                    <div class="divide-y divide-gray-200 dark:divide-gray-700">
-                        @forelse($recentActivities as $activity)
-                            <div class="p-6 hover:bg-gray-50 dark:hover:bg-gray-700 transition">
-                                <div class="flex justify-between items-start">
-                                    <div class="flex-1">
-                                        <p class="font-semibold text-gray-900 dark:text-gray-100">
-                                            {{ $activity->deskripsi }}
-                                        </p>
-                                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                                            Sawah: <strong>{{ $activity->sawah->nama ?? '-' }}</strong>
-                                        </p>
-                                    </div>
-                                    <div class="text-right">
-                                        <p class="text-xs text-gray-500 dark:text-gray-400">
-                                            {{ $activity->created_at->format('d M Y') }}
-                                        </p>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400">
-                                            {{ $activity->created_at->format('H:i') }}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        @empty
-                            <div class="p-6 text-center text-gray-500 dark:text-gray-400">
-                                Belum ada aktivitas. Mulai tambahkan aktivitas!
-                            </div>
-                        @endforelse
-                    </div>
-                </div>
-
-                <!-- Quick Actions (Right - 1 col) -->
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
-                        ⚡ Aksi Cepat
-                    </h3>
-                    <div class="space-y-3">
-                        <a href="#" class="block px-4 py-3 rounded bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold hover:from-green-600 hover:to-emerald-700 transition text-center">
-                            + Tambah Sawah
-                        </a>
-                        <a href="#" class="block px-4 py-3 rounded bg-gradient-to-r from-blue-500 to-cyan-600 text-white font-semibold hover:from-blue-600 hover:to-cyan-700 transition text-center">
-                            + Aktivitas Baru
-                        </a>
-                        <a href="#" class="block px-4 py-3 rounded bg-gradient-to-r from-amber-500 to-orange-600 text-white font-semibold hover:from-amber-600 hover:to-orange-700 transition text-center">
-                            + Catat Panen
-                        </a>
-                        <a href="#" class="block px-4 py-3 rounded bg-gradient-to-r from-purple-500 to-pink-600 text-white font-semibold hover:from-purple-600 hover:to-pink-700 transition text-center">
-                            📊 Laporan
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Recent Harvest -->
-            <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 border-b border-gray-200 dark:border-gray-700">
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                        📦 Hasil Panen Terbaru
-                    </h3>
-                </div>
-
-                <div class="overflow-x-auto">
-                    <table class="w-full text-sm">
-                        <thead class="bg-gray-50 dark:bg-gray-700">
-                            <tr>
-                                <th class="px-6 py-3 text-left font-semibold text-gray-900 dark:text-gray-100">
-                                    Sawah
-                                </th>
-                                <th class="px-6 py-3 text-left font-semibold text-gray-900 dark:text-gray-100">
-                                    Jumlah (kg)
-                                </th>
-                                <th class="px-6 py-3 text-left font-semibold text-gray-900 dark:text-gray-100">
-                                    Tanggal Panen
-                                </th>
-                                <th class="px-6 py-3 text-left font-semibold text-gray-900 dark:text-gray-100">
-                                    Kualitas
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-                            @forelse($recentHarvest as $harvest)
-                                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
-                                    <td class="px-6 py-4 font-semibold text-gray-900 dark:text-gray-100">
-                                        {{ $harvest->sawah->nama ?? '-' }}
-                                    </td>
-                                    <td class="px-6 py-4 text-gray-900 dark:text-gray-100">
-                                        {{ number_format($harvest->hasil_panen, 2, ',', '.') }}
-                                    </td>
-                                    <td class="px-6 py-4 text-gray-600 dark:text-gray-400">
-                                        {{ $harvest->tanggal_panen->format('d M Y') }}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">
-                                            Premium
-                                        </span>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="4" class="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
-                                        Belum ada data panen
-                                    </td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+                    <span class="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-[11px] font-bold">Optimal</span>
                 </div>
             </div>
         </div>
+
+        <!-- Quick Actions -->
+        <div class="bg-gradient-to-br from-emerald-50 to-emerald-100/50 rounded-xl p-stack-md border border-emerald-200 shadow-sm">
+            <h4 class="text-headline-md text-primary mb-4">Quick Actions</h4>
+            <div class="space-y-3">
+                <button class="w-full bg-white hover:bg-slate-50 border border-emerald-200 rounded-lg px-4 py-3 text-left text-body-sm font-medium text-primary transition-colors flex items-center gap-2">
+                    <span class="material-symbols-outlined">note_add</span>
+                    Log Activity
+                </button>
+                <button class="w-full bg-white hover:bg-slate-50 border border-emerald-200 rounded-lg px-4 py-3 text-left text-body-sm font-medium text-primary transition-colors flex items-center gap-2">
+                    <span class="material-symbols-outlined">water_drop</span>
+                    Irrigation
+                </button>
+                <button class="w-full bg-white hover:bg-slate-50 border border-emerald-200 rounded-lg px-4 py-3 text-left text-body-sm font-medium text-primary transition-colors flex items-center gap-2">
+                    <span class="material-symbols-outlined">bug_report</span>
+                    Report Issue
+                </button>
+                <button class="w-full bg-primary hover:opacity-90 text-white rounded-lg px-4 py-3 text-body-sm font-bold transition-all flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined">shopping_basket</span>
+                    Schedule Harvest
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activities -->
+    <div class="bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden">
+        <div class="p-6 border-b border-slate-100">
+            <h4 class="text-headline-md text-primary mb-1">Recent Farm Activities</h4>
+            <p class="text-body-sm text-slate-500">Your logged activities from the past 30 days</p>
+        </div>
+        <table class="w-full text-left">
+            <thead>
+                <tr class="bg-surface-container text-slate-500 uppercase tracking-wider text-[11px] font-bold border-b border-slate-100">
+                    <th class="px-6 py-4">Activity</th>
+                    <th class="px-6 py-4">Field</th>
+                    <th class="px-6 py-4">Duration</th>
+                    <th class="px-6 py-4">Notes</th>
+                    <th class="px-6 py-4">Date</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+                <tr class="hover:bg-slate-50/50 transition-colors">
+                    <td class="px-6 py-4">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-emerald-600 text-lg">water_drop</span>
+                            <span class="text-body-sm font-medium">Irrigation</span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 text-body-sm text-slate-600">North Field - A</td>
+                    <td class="px-6 py-4 text-body-sm text-slate-600">2.5 hours</td>
+                    <td class="px-6 py-4 text-body-sm text-slate-600">Morning watering</td>
+                    <td class="px-6 py-4 text-body-sm text-slate-600">Oct 22</td>
+                </tr>
+                <tr class="hover:bg-slate-50/50 transition-colors">
+                    <td class="px-6 py-4">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-amber-600 text-lg">pest_control</span>
+                            <span class="text-body-sm font-medium">Pest Control</span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 text-body-sm text-slate-600">East Field - B</td>
+                    <td class="px-6 py-4 text-body-sm text-slate-600">1.5 hours</td>
+                    <td class="px-6 py-4 text-body-sm text-slate-600">Spraying treatment</td>
+                    <td class="px-6 py-4 text-body-sm text-slate-600">Oct 21</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </x-app-layout>
+
+            

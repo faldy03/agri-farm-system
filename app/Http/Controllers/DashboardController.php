@@ -44,14 +44,17 @@ class DashboardController extends Controller
 
         // Ambil data statistik
         $stats = [
+            'total_users' => \App\Models\User::count(),
+            'active_users' => \App\Models\User::where('status', 'active')->count(),
             'total_farmers' => \App\Models\User::whereHas('roles', function ($q) {
                 $q->where('name', 'farmer');
             })->count(),
             'total_owners' => \App\Models\User::whereHas('roles', function ($q) {
                 $q->where('name', 'owner');
             })->count(),
-            'total_fields' => \App\Models\Sawah::count(),
+            'total_farms' => \App\Models\Sawah::count(),
             'total_harvest' => \App\Models\Panen::sum('jumlah_kg') ?? 0,
+            'alerts' => 2, // You can add your alert logic here
         ];
 
         // Data recent activities (untuk grafik/chart)
